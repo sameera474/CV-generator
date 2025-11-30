@@ -60,11 +60,12 @@ function BlueTemplate({
       <main className="tpl-blue-main">
         <div className="blue-job">{jobTitle}</div>
 
-        <h3 className="blue-section">SUMMARY</h3>
-        <p className="blue-text">
-          {summary ||
-            "Quality driven QA/QC Engineer with over 7 years of experience in civil, structural and MEP works."}
-        </p>
+        {summary && (
+          <>
+            <h3 className="blue-section">SUMMARY</h3>
+            <p className="blue-text">{summary}</p>
+          </>
+        )}
 
         {expList.length > 0 && (
           <>

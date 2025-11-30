@@ -23,8 +23,10 @@ import {
   Translate,
   Link as LinkIcon,
   PictureAsPdf,
+  Upload,
 } from "@mui/icons-material";
 
+import UploadStep from "./components/steps/UploadStep";
 import HeaderStep from "./components/steps/HeaderStep";
 import ContactStep from "./components/steps/ContactStep";
 import ExperienceStep from "./components/steps/ExperienceStep";
@@ -39,14 +41,15 @@ import BlueTemplate from "./components/preview/BlueTemplate";
 import SplitTemplate from "./components/preview/SplitTemplate";
 
 const steps = [
-  { id: 1, label: "Header", icon: <Person fontSize="small" /> },
-  { id: 2, label: "Contact", icon: <ContactPage fontSize="small" /> },
-  { id: 3, label: "Experience", icon: <Work fontSize="small" /> },
-  { id: 4, label: "Education", icon: <School fontSize="small" /> },
-  { id: 5, label: "Skills", icon: <Star fontSize="small" /> },
-  { id: 6, label: "Summary", icon: <Notes fontSize="small" /> },
-  { id: 7, label: "Languages", icon: <Translate fontSize="small" /> },
-  { id: 8, label: "Links", icon: <LinkIcon fontSize="small" /> },
+  { id: 1, label: "Upload CV", icon: <Upload fontSize="small" /> },
+  { id: 2, label: "Header", icon: <Person fontSize="small" /> },
+  { id: 3, label: "Contact", icon: <ContactPage fontSize="small" /> },
+  { id: 4, label: "Experience", icon: <Work fontSize="small" /> },
+  { id: 5, label: "Education", icon: <School fontSize="small" /> },
+  { id: 6, label: "Skills", icon: <Star fontSize="small" /> },
+  { id: 7, label: "Summary", icon: <Notes fontSize="small" /> },
+  { id: 8, label: "Languages", icon: <Translate fontSize="small" /> },
+  { id: 9, label: "Links", icon: <LinkIcon fontSize="small" /> },
 ];
 
 const languageLevels = [
@@ -171,10 +174,21 @@ function App() {
   const renderStepContent = () => {
     switch (step) {
       case 1:
-        return <HeaderStep personal={personal} setPersonal={setPersonal} />;
+        return (
+          <UploadStep
+            setPersonal={setPersonal}
+            setContact={setContact}
+            setSkills={setSkills}
+            setSummary={setSummary}
+            setLanguages={setLanguages}
+            setLinks={setLinks}
+          />
+        );
       case 2:
-        return <ContactStep contact={contact} setContact={setContact} />;
+        return <HeaderStep personal={personal} setPersonal={setPersonal} />;
       case 3:
+        return <ContactStep contact={contact} setContact={setContact} />;
+      case 4:
         return (
           <ExperienceStep
             experience={experience}
@@ -184,7 +198,7 @@ function App() {
             removeListItem={removeListItem}
           />
         );
-      case 4:
+      case 5:
         return (
           <EducationStep
             education={education}
@@ -194,11 +208,11 @@ function App() {
             removeListItem={removeListItem}
           />
         );
-      case 5:
-        return <SkillsStep skills={skills} setSkills={setSkills} />;
       case 6:
-        return <SummaryStep summary={summary} setSummary={setSummary} />;
+        return <SkillsStep skills={skills} setSkills={setSkills} />;
       case 7:
+        return <SummaryStep summary={summary} setSummary={setSummary} />;
+      case 8:
         return (
           <LanguagesStep
             languages={languages}
@@ -209,7 +223,7 @@ function App() {
             languageLevels={languageLevels}
           />
         );
-      case 8:
+      case 9:
         return (
           <LinksStep
             links={links}
