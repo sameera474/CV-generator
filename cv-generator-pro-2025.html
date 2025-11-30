@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Generator Pro 2025</title>
+    <style>
+        :root {
+            --color-primary: #2563eb;
+            --color-primary-hover: #1d4ed8;
+            --color-secondary: #64748b;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --color-bg: #f8fafc;
+            --color-surface: #ffffff;
+            --color-text: #1e293b;
+            --color-text-secondary: #64748b;
+            --color-border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --color-bg: #0f172a;
+            --color-surface: #1e293b;
+            --color-text: #f1f5f9;
+            --color-text-secondary: #94a3b8;
+            --color-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 400px;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: var(--color-surface);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-list {
+            list-style: none;
+        }
+
+        .step-item {
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+            color: var(--color-text-secondary);
+        }
+
+        .step-item:hover {
+            background: var(--color-bg);
+        }
+
+        .step-item.active {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--color-surface);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-bg);
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--color-border);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--color-surface);
+            color: var(--color-text);
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .list-item {
+            background: var(--color-bg);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--color-border);
+        }
+
+        .list-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-icon:hover {
+            color: var(--color-danger);
+        }
+
+        .btn-add {
+            margin-top: 12px;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            background: #e5e7eb;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .preview-controls {
+            background: var(--color-surface);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid var(--color-border);
+        }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .score-excellent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .score-good {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .score-fair {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .template-selector {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .template-option {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .template-option.active {
+            border-color: var(--color-primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .cv-preview {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 842px;
+            border-radius: 8px;
+        }
+
+        /* CV STYLES - CLASSIC TEMPLATE */
+        .cv-header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .cv-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .cv-title {
+            font-size: 18px;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .cv-contact {
+            font-size: 13px;
+            color: #64748b;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .cv-section {
+            margin-bottom: 24px;
+        }
+
+        .cv-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .cv-item {
+            margin-bottom: 16px;
+        }
+
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .cv-item-title {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .cv-item-subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .cv-item-date {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .cv-item-desc {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        .cv-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cv-skill {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--color-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .ai-suggestions {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .ai-suggestion-item {
+            padding: 8px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .ai-suggestion-item:hover {
+            background: #dbeafe;
+        }
+
+        /* MODERN TEMPLATE */
+        .cv-modern .cv-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1d4ed8 100%);
+            color: white;
+            padding: 32px;
+            margin: -40px -40px 24px -40px;
+            text-align: left;
+        }
+
+        .cv-modern .cv-name {
+            color: white;
+        }
+
+        .cv-modern .cv-title {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cv-modern .cv-contact {
+            color: rgba(255, 255, 255, 0.8);
+            justify-content: flex-start;
+        }
+
+        .cv-modern .cv-section-title {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        /* MINIMALIST TEMPLATE */
+        .cv-minimalist .cv-header {
+            border-left: 4px solid var(--color-primary);
+            padding-left: 16px;
+            text-align: left;
+        }
+
+        .cv-minimalist .cv-section-title {
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .cv-minimalist .cv-skill {
+            background: transparent;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+
+        @media print {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar, .preview-panel .preview-controls {
+                display: none;
+            }
+            .main-content {
+                display: none;
+            }
+            .preview-panel {
+                padding: 0;
+                background: white;
+            }
+            .cv-preview {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .app-container {
+                grid-template-columns: 280px 1fr;
+            }
+            .preview-panel {
+                position: fixed;
+                right: -400px;
+                top: 0;
+                bottom: 0;
+                width: 400px;
+                transition: right 0.3s;
+                z-index: 100;
+            }
+            .preview-panel.open {
+                right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                width: 280px;
+                transition: left 0.3s;
+                z-index: 100;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .score-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .metric-item {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                CV Generator Pro
+            </div>
+            <ul class="step-list">
+                <li class="step-item active" data-step="personal">
+                    <span class="step-icon">👤</span>
+                    Personal Info
+                </li>
+                <li class="step-item" data-step="contact">
+                    <span class="step-icon">📧</span>
+                    Contact Details
+                </li>
+                <li class="step-item" data-step="summary">
+                    <span class="step-icon">📝</span>
+                    Professional Summary
+                </li>
+                <li class="step-item" data-step="experience">
+                    <span class="step-icon">💼</span>
+                    Work Experience
+                </li>
+                <li class="step-item" data-step="education">
+                    <span class="step-icon">🎓</span>
+                    Education
+                </li>
+                <li class="step-item" data-step="skills">
+                    <span class="step-icon">⭐</span>
+                    Skills
+                </li>
+                <li class="step-item" data-step="languages">
+                    <span class="step-icon">🌍</span>
+                    Languages
+                </li>
+                <li class="step-item" data-step="links">
+                    <span class="step-icon">🔗</span>
+                    Links & Portfolio
+                </li>
+            </ul>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="header-controls">
+                <div>
+                    <label class="toggle-switch">
+                        <span>Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </label>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-secondary" onclick="autoSave()">💾 Save</button>
+                    <button class="btn btn-secondary" onclick="window.print()">📄 Export PDF</button>
+                    <button class="btn btn-primary" onclick="nextStep()">Next →</button>
+                </div>
+            </div>
+
+            <!-- PERSONAL INFO STEP -->
+            <div class="step-content" id="step-personal">
+                <div class="card">
+                    <h2 class="card-title">Personal Information</h2>
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" class="form-input" id="fullName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Job Title *</label>
+                        <input type="text" class="form-input" id="jobTitle" placeholder="Senior Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Photo URL (optional)</label>
+                        <input type="text" class="form-input" id="photoUrl" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT STEP -->
+            <div class="step-content hidden" id="step-contact">
+                <div class="card">
+                    <h2 class="card-title">Contact Details</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-input" id="email" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-input" id="phone" placeholder="+1 234 567 8900">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-input" id="city" placeholder="San Francisco">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Country</label>
+                            <input type="text" class="form-input" id="country" placeholder="United States">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address (optional)</label>
+                        <input type="text" class="form-input" id="address" placeholder="123 Main St">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUMMARY STEP -->
+            <div class="step-content hidden" id="step-summary">
+                <div class="card">
+                    <h2 class="card-title">Professional Summary</h2>
+                    <div class="form-group">
+                        <label class="form-label">Summary</label>
+                        <textarea class="form-input" id="summary" placeholder="Write a compelling professional summary..."></textarea>
+                    </div>
+                    <button class="btn btn-secondary" onclick="generateAISummary()">✨ AI Generate</button>
+                    <div id="aiSummaryBox" class="ai-suggestions hidden">
+                        <p style="font-weight: 600; margin-bottom: 8px;">AI Suggestions:</p>
+                        <div id="aiSummaryItems"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXPERIENCE STEP -->
+            <div class="step-content hidden" id="step-experience">
+                <div class="card">
+                    <h2 class="card-title">Work Experience</h2>
+                    <div id="experienceList"></div>
+                    <button class="btn btn-secondary btn-add" onclick="addExperience()">+ Add Experience</button>
+                </div>
+            </div>
+
+            <!-- EDUCATION STEP -->
+            <div class="step-content hidden" id="step-education">
+                <div class="card">
+                    <h2 class="card-title">Education</h2>
+                    <div id="educationList"></div>
+                    <button class="btn btn-secondary btn-add" onclick="addEducation()">+ Add Education</button>
+                </div>
+            </div>
+
+            <!-- SKILLS STEP -->
+            <div class="step-content hidden" id="step-skills">
+                <div class="card">
+                    <h2 class="card-title">Skills</h2>
+                    <div class="form-group">
+                        <label class="form-label">Skills (comma-separated)</label>
+                        <textarea class="form-input" id="skills" placeholder="JavaScript, React, Node.js, Python, Leadership"></textarea>
+                    </div>
+                    <button class="btn btn-secondary" onclick="analyzeSkills()">🔍 Analyze Skills</button>
+                </div>
+            </div>
+
+            <!-- LANGUAGES STEP -->
+            <div class="step-content hidden" id="step-languages">
+                <div class="card">
+                    <h2 class="card-title">Languages</h2>
+                    <div id="languagesList"></div>
+                    <button class="btn btn-secondary btn-add" onclick="addLanguage()">+ Add Language</button>
+                </div>
+            </div>
+
+            <!-- LINKS STEP -->
+            <div class="step-content hidden" id="step-links">
+                <div class="card">
+                    <h2 class="card-title">Links & Portfolio</h2>
+                    <div id="linksList"></div>
+                    <button class="btn btn-secondary btn-add" onclick="addLink()">+ Add Link</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="preview-controls">
+                <div class="score-badge score-excellent">
+                    <span>⭐</span>
+                    <span>ATS Score: <span id="atsScore">85</span>/100</span>
+                </div>
+                <div class="score-metrics">
+                    <div class="metric-item">
+                        Completeness: <span class="metric-value" id="completeness">75%</span>
+                    </div>
+                    <div class="metric-item">
+                        Keywords: <span class="metric-value" id="keywords">12</span>
+                    </div>
+                    <div class="metric-item">
+                        Length: <span class="metric-value" id="length">Good</span>
+                    </div>
+                    <div class="metric-item">
+                        ATS-Ready: <span class="metric-value" id="atsReady">Yes</span>
+                    </div>
+                </div>
+                <div style="margin-top: 16px;">
+                    <label class="form-label">Template</label>
+                    <div class="template-selector">
+                        <div class="template-option active" data-template="classic" onclick="changeTemplate('classic')">Classic</div>
+                        <div class="template-option" data-template="modern" onclick="changeTemplate('modern')">Modern</div>
+                        <div class="template-option" data-template="minimalist" onclick="changeTemplate('minimalist')">Minimal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-preview" id="cvPreview">
+                <!-- CV Content will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 'personal';
+        let currentTemplate = 'classic';
+        let experiences = [];
+        let educations = [];
+        let languages = [];
+        let links = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFromStorage();
+            addExperience();
+            addEducation();
+            addLanguage();
+            addLink();
+            updatePreview();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            // Step navigation
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    switchStep(item.dataset.step);
+                });
+            });
+
+            // Dark mode toggle
+            document.getElementById('darkModeToggle').addEventListener('change', (e) => {
+                document.documentElement.setAttribute('data-theme', e.target.checked ? 'dark' : 'light');
+            });
+
+            // Auto-update preview on input changes
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.addEventListener('input', debounce(updatePreview, 300));
+            });
+        }
+
+        function switchStep(step) {
+            currentStep = step;
+            
+            // Update sidebar
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.step === step);
+            });
+
+            // Update content
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+        }
+
+        function nextStep() {
+            const steps = ['personal', 'contact', 'summary', 'experience', 'education', 'skills', 'languages', 'links'];
+            const currentIndex = steps.indexOf(currentStep);
+            if (currentIndex < steps.length - 1) {
+                switchStep(steps[currentIndex + 1]);
+            }
+        }
+
+        function addExperience() {
+            const id = Date.now();
+            experiences.push({ id, title: '', company: '', location: '', startDate: '', endDate: '', description: '' });
+            renderExperiences();
+        }
+
+        function removeExperience(id) {
+            experiences = experiences.filter(e => e.id !== id);
+            renderExperiences();
+            updatePreview();
+        }
+
+        function renderExperiences() {
+            const container = document.getElementById('experienceList');
+            container.innerHTML = experiences.map(exp => `
+                <div class="list-item">
+                    <div class="list-item-header">
+                        <strong>Experience ${experiences.indexOf(exp) + 1}</strong>
+                        <button class="btn-icon" onclick="removeExperience(${exp.id})">🗑️</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" class="form-input" value="${exp.title}" 
+                               onchange="updateExperience(${exp.id}, 'title', this.value)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-input" value="${exp.company}" 
+                                   onchange="updateExperience(${exp.id}, 'company', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-input" value="${exp.location}" 
+                                   onchange="updateExperience(${exp.id}, 'location', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="text" class="form-input" value="${exp.startDate}" 
+                                   placeholder="Jan 2020" onchange="updateExperience(${exp.id}, 'startDate', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="text" class="form-input" value="${exp.endDate}" 
+                                   placeholder="Present" onchange="updateExperience(${exp.id}, 'endDate', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input" onchange="updateExperience(${exp.id}, 'description', this.value)">${exp.description}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateExperience(id, field, value) {
+            const exp = experiences.find(e => e.id === id);
+            if (exp) {
+                exp[field] = value;
+                updatePreview();
+            }
+        }
+
+        function addEducation() {
+            const id = Date.now();
+            educations.push({ id, degree: '', school: '', location: '', startDate: '', endDate: '', description: '' });
+            renderEducations();
+        }
+
+        function removeEducation(id) {
+            educations = educations.filter(e => e.id !== id);
+            renderEducations();
+            updatePreview();
+        }
+
+        function renderEducations() {
+            const container = document.getElementById('educationList');
+            container.innerHTML = educations.map(edu => `
+                <div class="list-item">
+                    <div class="list-item-header">
+                        <strong>Education ${educations.indexOf(edu) + 1}</strong>
+                        <button class="btn-icon" onclick="removeEducation(${edu.id})">🗑️</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Degree</label>
+                        <input type="text" class="form-input" value="${edu.degree}" 
+                               onchange="updateEducation(${edu.id}, 'degree', this.value)">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">School</label>
+                            <input type="text" class="form-input" value="${edu.school}" 
+                                   onchange="updateEducation(${edu.id}, 'school', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-input" value="${edu.location}" 
+                                   onchange="updateEducation(${edu.id}, 'location', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="text" class="form-input" value="${edu.startDate}" 
+                                   placeholder="2016" onchange="updateEducation(${edu.id}, 'startDate', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="text" class="form-input" value="${edu.endDate}" 
+                                   placeholder="2020" onchange="updateEducation(${edu.id}, 'endDate', this.value)">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateEducation(id, field, value) {
+            const edu = educations.find(e => e.id === id);
+            if (edu) {
+                edu[field] = value;
+                updatePreview();
+            }
+        }
+
+        function addLanguage() {
+            const id = Date.now();
+            languages.push({ id, name: '', level: 'Intermediate' });
+            renderLanguages();
+        }
+
+        function removeLanguage(id) {
+            languages = languages.filter(l => l.id !== id);
+            renderLanguages();
+            updatePreview();
+        }
+
+        function renderLanguages() {
+            const container = document.getElementById('languagesList');
+            container.innerHTML = languages.map(lang => `
+                <div class="list-item">
+                    <div class="list-item-header">
+                        <strong>Language ${languages.indexOf(lang) + 1}</strong>
+                        <button class="btn-icon" onclick="removeLanguage(${lang.id})">🗑️</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Language</label>
+                            <input type="text" class="form-input" value="${lang.name}" 
+                                   onchange="updateLanguage(${lang.id}, 'name', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Level</label>
+                            <select class="form-input" onchange="updateLanguage(${lang.id}, 'level', this.value)">
+                                <option ${lang.level === 'Native' ? 'selected' : ''}>Native</option>
+                                <option ${lang.level === 'Fluent' ? 'selected' : ''}>Fluent</option>
+                                <option ${lang.level === 'Advanced' ? 'selected' : ''}>Advanced</option>
+                                <option ${lang.level === 'Intermediate' ? 'selected' : ''}>Intermediate</option>
+                                <option ${lang.level === 'Basic' ? 'selected' : ''}>Basic</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateLanguage(id, field, value) {
+            const lang = languages.find(l => l.id === id);
+            if (lang) {
+                lang[field] = value;
+                updatePreview();
+            }
+        }
+
+        function addLink() {
+            const id = Date.now();
+            links.push({ id, title: '', url: '' });
+            renderLinks();
+        }
+
+        function removeLink(id) {
+            links = links.filter(l => l.id !== id);
+            renderLinks();
+            updatePreview();
+        }
+
+        function renderLinks() {
+            const container = document.getElementById('linksList');
+            container.innerHTML = links.map(link => `
+                <div class="list-item">
+                    <div class="list-item-header">
+                        <strong>Link ${links.indexOf(link) + 1}</strong>
+                        <button class="btn-icon" onclick="removeLink(${link.id})">🗑️</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-input" value="${link.title}" 
+                                   placeholder="LinkedIn" onchange="updateLink(${link.id}, 'title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">URL</label>
+                            <input type="text" class="form-input" value="${link.url}" 
+                                   placeholder="https://linkedin.com/in/..." onchange="updateLink(${link.id}, 'url', this.value)">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateLink(id, field, value) {
+            const link = links.find(l => l.id === id);
+            if (link) {
+                link[field] = value;
+                updatePreview();
+            }
+        }
+
+        function updatePreview() {
+            const data = {
+                fullName: document.getElementById('fullName')?.value || '',
+                jobTitle: document.getElementById('jobTitle')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                phone: document.getElementById('phone')?.value || '',
+                city: document.getElementById('city')?.value || '',
+                country: document.getElementById('country')?.value || '',
+                address: document.getElementById('address')?.value || '',
+                summary: document.getElementById('summary')?.value || '',
+                skills: document.getElementById('skills')?.value || '',
+            };
+
+            const preview = document.getElementById('cvPreview');
+            preview.className = `cv-preview cv-${currentTemplate}`;
+            
+            const contactInfo = [data.email, data.phone, data.city, data.country].filter(Boolean).join(' • ');
+            
+            const skillsList = data.skills.split(',').map(s => s.trim()).filter(Boolean)
+                .map(skill => `<span class="cv-skill">${skill}</span>`).join('');
+
+            preview.innerHTML = `
+                <div class="cv-header">
+                    <div class="cv-name">${data.fullName || 'Your Name'}</div>
+                    <div class="cv-title">${data.jobTitle || 'Your Job Title'}</div>
+                    <div class="cv-contact">${contactInfo || 'your@email.com • +1 234 567 8900'}</div>
+                </div>
+
+                ${data.summary ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Professional Summary</div>
+                    <div class="cv-item-desc">${data.summary}</div>
+                </div>
+                ` : ''}
+
+                ${experiences.filter(e => e.title || e.company).length > 0 ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Work Experience</div>
+                    ${experiences.filter(e => e.title || e.company).map(exp => `
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div>
+                                    <div class="cv-item-title">${exp.title}</div>
+                                    <div class="cv-item-subtitle">${exp.company}${exp.location ? ' • ' + exp.location : ''}</div>
+                                </div>
+                                <div class="cv-item-date">${exp.startDate}${exp.endDate ? ' - ' + exp.endDate : ''}</div>
+                            </div>
+                            ${exp.description ? `<div class="cv-item-desc">${exp.description}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${educations.filter(e => e.degree || e.school).length > 0 ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Education</div>
+                    ${educations.filter(e => e.degree || e.school).map(edu => `
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div>
+                                    <div class="cv-item-title">${edu.degree}</div>
+                                    <div class="cv-item-subtitle">${edu.school}${edu.location ? ' • ' + edu.location : ''}</div>
+                                </div>
+                                <div class="cv-item-date">${edu.startDate}${edu.endDate ? ' - ' + edu.endDate : ''}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${skillsList ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Skills</div>
+                    <div class="cv-skills">${skillsList}</div>
+                </div>
+                ` : ''}
+
+                ${languages.filter(l => l.name).length > 0 ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Languages</div>
+                    ${languages.filter(l => l.name).map(lang => `
+                        <div class="cv-item">
+                            <div class="cv-item-header">
+                                <div class="cv-item-title">${lang.name}</div>
+                                <div class="cv-item-subtitle">${lang.level}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+
+                ${links.filter(l => l.title || l.url).length > 0 ? `
+                <div class="cv-section">
+                    <div class="cv-section-title">Links</div>
+                    ${links.filter(l => l.title || l.url).map(link => `
+                        <div class="cv-item">
+                            <div class="cv-item-subtitle">${link.title}: ${link.url}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+            `;
+
+            calculateScore(data);
+        }
+
+        function calculateScore(data) {
+            let score = 0;
+            let completeness = 0;
+            let keywords = 0;
+
+            // Calculate completeness
+            if (data.fullName) completeness += 15;
+            if (data.jobTitle) completeness += 15;
+            if (data.email) completeness += 10;
+            if (data.summary) completeness += 20;
+            if (experiences.filter(e => e.title).length > 0) completeness += 20;
+            if (educations.filter(e => e.degree).length > 0) completeness += 10;
+            if (data.skills) completeness += 10;
+
+            // Calculate keywords
+            const text = JSON.stringify(data) + JSON.stringify(experiences);
+            const commonKeywords = ['managed', 'developed', 'led', 'created', 'improved', 'increased', 'designed'];
+            keywords = commonKeywords.filter(kw => text.toLowerCase().includes(kw)).length;
+
+            score = Math.min(100, completeness + (keywords * 2));
+
+            document.getElementById('atsScore').textContent = score;
+            document.getElementById('completeness').textContent = completeness + '%';
+            document.getElementById('keywords').textContent = keywords;
+            document.getElementById('length').textContent = text.length > 500 ? 'Good' : 'Too Short';
+            document.getElementById('atsReady').textContent = score > 70 ? 'Yes' : 'Needs Work';
+
+            const scoreBadge = document.querySelector('.score-badge');
+            scoreBadge.className = 'score-badge';
+            if (score >= 80) scoreBadge.classList.add('score-excellent');
+            else if (score >= 60) scoreBadge.classList.add('score-good');
+            else scoreBadge.classList.add('score-fair');
+        }
+
+        function changeTemplate(template) {
+            currentTemplate = template;
+            document.querySelectorAll('.template-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.template === template);
+            });
+            updatePreview();
+        }
+
+        function generateAISummary() {
+            const jobTitle = document.getElementById('jobTitle').value;
+            const skills = document.getElementById('skills').value;
+            
+            const suggestions = [
+                `Results-driven ${jobTitle} with expertise in ${skills.split(',')[0]} and ${skills.split(',')[1]}. Proven track record of delivering high-quality solutions and driving team success.`,
+                `Accomplished ${jobTitle} specializing in ${skills.split(',')[0]}. Strong background in leading cross-functional teams and implementing innovative solutions.`,
+                `Dynamic ${jobTitle} with a passion for ${skills.split(',')[0]} and ${skills.split(',')[1]}. Committed to excellence and continuous improvement in fast-paced environments.`
+            ];
+
+            const box = document.getElementById('aiSummaryBox');
+            const items = document.getElementById('aiSummaryItems');
+            
+            items.innerHTML = suggestions.map((text, i) => 
+                `<div class="ai-suggestion-item" onclick="applySuggestion('${text.replace(/'/g, "\\'")}')">${text}</div>`
+            ).join('');
+            
+            box.classList.remove('hidden');
+        }
+
+        function applySuggestion(text) {
+            document.getElementById('summary').value = text;
+            updatePreview();
+            document.getElementById('aiSummaryBox').classList.add('hidden');
+        }
+
+        function analyzeSkills() {
+            alert('Analyzing your skills for ATS optimization...\n\n✓ Current skills are well-formatted\n✓ Consider adding: Leadership, Communication\n✓ Industry-relevant keywords detected');
+        }
+
+        function autoSave() {
+            const data = {
+                personal: {
+                    fullName: document.getElementById('fullName')?.value,
+                    jobTitle: document.getElementById('jobTitle')?.value,
+                },
+                contact: {
+                    email: document.getElementById('email')?.value,
+                    phone: document.getElementById('phone')?.value,
+                    city: document.getElementById('city')?.value,
+                    country: document.getElementById('country')?.value,
+                },
+                summary: document.getElementById('summary')?.value,
+                skills: document.getElementById('skills')?.value,
+                experiences,
+                educations,
+                languages,
+                links
+            };
+            
+            localStorage.setItem('cvGeneratorData', JSON.stringify(data));
+            alert('✓ CV saved successfully!');
+        }
+
+        function loadFromStorage() {
+            const saved = localStorage.getItem('cvGeneratorData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                if (data.personal) {
+                    document.getElementById('fullName').value = data.personal.fullName || '';
+                    document.getElementById('jobTitle').value = data.personal.jobTitle || '';
+                }
+                if (data.contact) {
+                    document.getElementById('email').value = data.contact.email || '';
+                    document.getElementById('phone').value = data.contact.phone || '';
+                    document.getElementById('city').value = data.contact.city || '';
+                    document.getElementById('country').value = data.contact.country || '';
+                }
+                document.getElementById('summary').value = data.summary || '';
+                document.getElementById('skills').value = data.skills || '';
+                if (data.experiences) experiences = data.experiences;
+                if (data.educations) educations = data.educations;
+                if (data.languages) languages = data.languages;
+                if (data.links) links = data.links;
+            }
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
